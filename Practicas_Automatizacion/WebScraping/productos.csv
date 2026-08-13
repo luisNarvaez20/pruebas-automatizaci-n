@@ -1,0 +1,21 @@
+sku,nombre,marca,categoria,presentacion
+100001,Coca Cola Original,Coca Cola,Bebidas,500 ml
+100002,Coca Cola Sin Azúcar,Coca Cola,Bebidas,500 ml
+100003,Pepsi,Pepsi,Bebidas,500 ml
+100004,Sprite,Sprite,Bebidas,500 ml
+100005,Fanta Naranja,Fanta,Bebidas,500 ml
+100006,Agua Dasani,Dasani,Bebidas,600 ml
+100007,Leche Entera,Toni,Lácteos,1 L
+100008,Leche Deslactosada,Toni,Lácteos,1 L
+100009,Yogurt Natural,Toni,Lácteos,1 kg
+100010,Queso Mozzarella,Kiosko,Lácteos,500 g
+100011,Arroz Flor,Flor,Granos,2 kg
+100012,Azúcar Valdez,Valdez,Abarrotes,2 kg
+100013,Sal Cris-Sal,Cris-Sal,Abarrotes,1 kg
+100014,Aceite Girasol,La Favorita,Aceites,1 L
+100015,Atún en Agua,Real,Conservas,170 g
+100016,Atún en Aceite,Real,Conservas,170 g
+100017,Detergente Líquido,Ariel,Limpieza,1 L
+100018,Suavizante Downy,Downy,Limpieza,850 ml
+100019,Papel Higiénico Scott,Scott,Higiene,12 rollos
+100020,Shampoo Pantene,Pantene,Cuidado Personal,400 ml

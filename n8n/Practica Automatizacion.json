@@ -1,0 +1,242 @@
+{
+  "name": "Practica Automatizacion",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 30
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -368,
+        80
+      ],
+      "id": "3f531593-f675-4cde-af54-084c0a31240c",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "url": "http://scraper:8000/scrape",
+        "options": {
+          "timeout": 900000
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        -112,
+        32
+      ],
+      "id": "9636e92f-5835-4091-882c-f8ffa8e47685",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "productos",
+          "mode": "list",
+          "cachedResultName": "productos"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "stock": "={{ $json.stock }}",
+            "precio": "={{ $json.precio }}",
+            "tienda": "={{ $json.tienda }}",
+            "nombre_tienda": "={{ $json.nombre_tienda }}",
+            "marca_tienda": "={{ $json.marca_tienda }}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "tienda",
+              "displayName": "tienda",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "nombre_tienda",
+              "displayName": "nombre_tienda",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "marca_tienda",
+              "displayName": "marca_tienda",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "precio",
+              "displayName": "precio",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "stock",
+              "displayName": "stock",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "fecha_consulta",
+              "displayName": "fecha_consulta",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.7,
+      "position": [
+        352,
+        32
+      ],
+      "id": "d672652b-1c5e-464e-b198-d7c23eab7aae",
+      "name": "Insert rows in a table1",
+      "credentials": {
+        "postgres": {
+          "id": "JLvFssrkBmypxzFo",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "0432272a-2720-47cb-a8eb-435410452792",
+              "leftValue": "={{ $json.nombre_tienda }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.3,
+      "position": [
+        112,
+        32
+      ],
+      "id": "e3cf0c97-b15d-4898-aba5-97d2f20cd569",
+      "name": "Filter"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert rows in a table1": {
+      "main": [
+        []
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Insert rows in a table1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "f46ec2ee-1ee7-4db0-95db-fbd7af4ab234",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "945cd030f7ef21e6225373481c5499de7adb110b5413b4187838f0cf833ec712"
+  },
+  "nodeGroups": [],
+  "id": "uhr1pIz46ahOtWBL",
+  "tags": []
+}

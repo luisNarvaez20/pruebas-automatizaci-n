@@ -1,0 +1,17 @@
+# Python
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# n8n
+n8n/data/
+
+# Environment
+.env
+
+# Git
+.git/
+
+# Node
+node_modules/
